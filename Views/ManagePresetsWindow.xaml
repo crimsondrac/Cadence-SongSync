@@ -1,0 +1,239 @@
+<Window x:Class="CadenceSongSync.Views.ManagePresetsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Cadence SongSync - Manage Presets"
+        Width="780" Height="580"
+        WindowStartupLocation="CenterScreen"
+        Background="#0F172A"
+        Foreground="#F8FAFC"
+        ResizeMode="CanResizeWithGrip">
+
+    <Window.Resources>
+        <Style x:Key="ModernBtn" TargetType="Button">
+            <Setter Property="Background" Value="#1E293B" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#334155" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#0F172A" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryBtn" TargetType="Button" BasedOn="{StaticResource ModernBtn}">
+            <Setter Property="Background" Value="#0284C7" />
+            <Setter Property="BorderBrush" Value="#0EA5E9" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="DangerBtn" TargetType="Button" BasedOn="{StaticResource ModernBtn}">
+            <Setter Property="Background" Value="#991B1B" />
+            <Setter Property="BorderBrush" Value="#DC2626" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Margin="0,0,0,12">
+            <StackPanel>
+                <TextBlock Text="Drive Sync Presets" FontSize="18" FontWeight="Bold" Foreground="#F8FAFC" />
+                <TextBlock Text="Presets configure one-click sync targets with smart drive letter &amp; volume label resolution."
+                           FontSize="12" Foreground="#94A3B8" Margin="0,2,0,0" />
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <!-- Left: Preset List -->
+                <ColumnDefinition Width="260" />
+                <!-- Right: Preset Details -->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Preset List -->
+            <Border Grid.Column="0" Background="#1E293B" BorderBrush="#334155" BorderThickness="1" CornerRadius="8" Padding="8" Margin="0,0,12,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ListBox x:Name="LstPresets"
+                             Background="Transparent" Foreground="#F8FAFC"
+                             BorderThickness="0"
+                             SelectionChanged="LstPresets_SelectionChanged">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Padding" Value="8,6" />
+                                <Setter Property="Margin" Value="0,2" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#2D3A4F" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#0369A1" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="13" Foreground="#F8FAFC" />
+                                    <TextBlock Text="{Binding DestinationDisplay}" FontSize="11" Foreground="#94A3B8" Margin="0,2,0,0" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Grid Grid.Row="1" Margin="0,8,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource PrimaryBtn}" Margin="0,0,4,0" Click="BtnAddPreset_Click">
+                            <TextBlock Text="+ Add Preset" />
+                        </Button>
+                        <Button Grid.Column="1" Style="{StaticResource DangerBtn}" Margin="4,0,0,0" Click="BtnDeletePreset_Click">
+                            <TextBlock Text="Delete" />
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- Right Preset Details -->
+            <Border Grid.Column="1" Background="#1E293B" BorderBrush="#334155" BorderThickness="1" CornerRadius="8" Padding="16">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="PnlPresetDetails">
+                        <!-- Preset Name -->
+                        <TextBlock Text="PRESET NAME:" FontSize="10" FontWeight="Bold" Foreground="#94A3B8" Margin="0,0,0,4" />
+                        <TextBox x:Name="TxtName"
+                                 Background="#0F172A" Foreground="#F8FAFC"
+                                 BorderBrush="#475569" Padding="8,6" Margin="0,0,0,14" />
+
+                        <!-- Playlist Path -->
+                        <TextBlock Text="PLAYLIST FILE PATH (Optional, leave blank to use currently playing playlist):"
+                                   FontSize="10" FontWeight="Bold" Foreground="#94A3B8" Margin="0,0,0,4" />
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtPlaylistPath"
+                                     Background="#0F172A" Foreground="#F8FAFC"
+                                     BorderBrush="#475569" Padding="8,6" />
+                            <Button Grid.Column="1" Style="{StaticResource ModernBtn}" Margin="6,0,0,0" Click="BtnBrowsePlaylist_Click">
+                                <TextBlock Text="Browse..." />
+                            </Button>
+                        </Grid>
+
+                        <!-- Destination Folder Picker -->
+                        <TextBlock Text="DESTINATION FOLDER ON DRIVE:" FontSize="10" FontWeight="Bold" Foreground="#94A3B8" Margin="0,0,0,4" />
+                        <Grid Margin="0,0,0,14">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtDestinationPreview"
+                                     IsReadOnly="True"
+                                     Background="#0F172A" Foreground="#F8FAFC"
+                                     BorderBrush="#475569" Padding="8,6" />
+                            <Button Grid.Column="1" Style="{StaticResource ModernBtn}" Margin="6,0,0,0" Click="BtnBrowseFolder_Click">
+                                <TextBlock Text="Browse Folder..." />
+                            </Button>
+                        </Grid>
+
+                        <!-- If File Exists On Destination -->
+                        <TextBlock Text="IF FILE EXISTS ON DESTINATION:" FontSize="10" FontWeight="Bold" Foreground="#94A3B8" Margin="0,0,0,4" />
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                            <RadioButton x:Name="RbExistsSkip" GroupName="PresetFileExists" Content="Skip (Do not overwrite)" IsChecked="True" Foreground="#F1F5F9" Margin="0,0,16,0" />
+                            <RadioButton x:Name="RbExistsOverwrite" GroupName="PresetFileExists" Content="Overwrite" Foreground="#F1F5F9" />
+                        </StackPanel>
+
+                        <!-- Prefix Track Numbers Checkbox -->
+                        <CheckBox x:Name="ChkPrefixTracks"
+                                  Content="Prefix tracks with playlist order numbers (e.g. 001 - Song.mp3)"
+                                  Foreground="#F1F5F9" Margin="0,0,0,14" />
+
+                        <!-- Smart Resolution Breakdown Info -->
+                        <Border Background="#0F172A" BorderBrush="#334155" BorderThickness="1" CornerRadius="6" Padding="12" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="Smart Resolution Metadata:" FontSize="11" FontWeight="Bold" Foreground="#38BDF8" Margin="0,0,0,6" />
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="130" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Drive Letter:" FontSize="11" Foreground="#94A3B8" />
+                                    <TextBlock Grid.Column="1" x:Name="TxtMetaDriveLetter" Text="(None)" FontSize="11" Foreground="#F1F5F9" />
+                                </Grid>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="130" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Volume Label:" FontSize="11" Foreground="#94A3B8" />
+                                    <TextBlock Grid.Column="1" x:Name="TxtMetaVolumeLabel" Text="(None)" FontSize="11" Foreground="#F1F5F9" />
+                                </Grid>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="130" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Relative Subfolder:" FontSize="11" Foreground="#94A3B8" />
+                                    <TextBlock Grid.Column="1" x:Name="TxtMetaSubfolder" Text="(Root)" FontSize="11" Foreground="#F1F5F9" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Action Buttons -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Style="{StaticResource PrimaryBtn}" Margin="0,0,8,0" Click="BtnSavePreset_Click">
+                                <TextBlock Text="💾 Save Preset" />
+                            </Button>
+                            <Button Style="{StaticResource ModernBtn}" Click="BtnSyncNow_Click">
+                                <TextBlock Text="⚡ Sync Now" />
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Footer -->
+        <Grid Grid.Row="2" Margin="0,12,0,0">
+            <Button Style="{StaticResource ModernBtn}" HorizontalAlignment="Right" Click="BtnClose_Click">
+                <TextBlock Text="Done" />
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

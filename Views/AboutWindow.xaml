@@ -1,0 +1,148 @@
+<Window x:Class="CadenceSongSync.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="About Cadence SongSync"
+        Width="500" Height="430"
+        WindowStartupLocation="CenterScreen"
+        Background="#0F172A"
+        Foreground="#F8FAFC"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style TargetType="Hyperlink">
+            <Setter Property="Foreground" Value="#38BDF8" />
+            <Setter Property="TextDecorations" Value="Underline" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#7DD3FC" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ModernBtn" TargetType="Button">
+            <Setter Property="Background" Value="#1E293B" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="16,6" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#334155" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#0F172A" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <!-- Header -->
+            <RowDefinition Height="Auto" />
+            <!-- Links / Info -->
+            <RowDefinition Height="*" />
+            <!-- Footer -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Margin="0,0,0,16">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Border Width="48" Height="48" CornerRadius="12" Background="#0EA5E9" Margin="0,0,14,0">
+                    <TextBlock Text="🎵" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Cadence SongSync" FontSize="18" FontWeight="Bold" Foreground="#F8FAFC" />
+                    <TextBlock Text="Version 1.0.0 • Lightweight System Tray Audio &amp; Drive Sync" FontSize="11" Foreground="#94A3B8" Margin="0,2,0,0" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Info / Clickable Links Grid -->
+        <Border Grid.Row="1" Background="#1E293B" BorderBrush="#334155" BorderThickness="1" CornerRadius="8" Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Developer -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Developer:" FontWeight="SemiBold" FontSize="12" Foreground="#94A3B8" Margin="0,5" />
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Sky Blue Eye Studios" FontSize="12" Foreground="#F1F5F9" Margin="0,5" />
+
+                <!-- Website -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Website:" FontWeight="SemiBold" FontSize="12" Foreground="#94A3B8" Margin="0,5" />
+                <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12" Margin="0,5">
+                    <Hyperlink NavigateUri="http://www.skyblueeye.com" RequestNavigate="Hyperlink_RequestNavigate">
+                        http://www.skyblueeye.com
+                    </Hyperlink>
+                </TextBlock>
+
+                <!-- Contact -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Contact:" FontWeight="SemiBold" FontSize="12" Foreground="#94A3B8" Margin="0,5" />
+                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12" Margin="0,5">
+                    <Hyperlink NavigateUri="mailto:info@skyblueeye.com" RequestNavigate="Hyperlink_RequestNavigate">
+                        info@skyblueeye.com
+                    </Hyperlink>
+                </TextBlock>
+
+                <!-- Privacy Notice -->
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Privacy Notice:" FontWeight="SemiBold" FontSize="12" Foreground="#94A3B8" Margin="0,5" />
+                <TextBlock Grid.Row="3" Grid.Column="1" FontSize="12" Margin="0,5">
+                    <Hyperlink NavigateUri="https://www.skyblueeye.com/songsync-privacy.html" RequestNavigate="Hyperlink_RequestNavigate">
+                        https://www.skyblueeye.com/songsync-privacy.html
+                    </Hyperlink>
+                </TextBlock>
+
+                <!-- MIT License -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="MIT License:" FontWeight="SemiBold" FontSize="12" Foreground="#94A3B8" Margin="0,5" />
+                <TextBlock Grid.Row="4" Grid.Column="1" FontSize="12" Margin="0,5">
+                    <Hyperlink NavigateUri="https://www.skyblueeye.com/songsync.html#license" RequestNavigate="Hyperlink_RequestNavigate">
+                        https://www.skyblueeye.com/songsync.html#license
+                    </Hyperlink>
+                </TextBlock>
+
+                <!-- GitHub Repo -->
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="GitHub Repo:" FontWeight="SemiBold" FontSize="12" Foreground="#94A3B8" Margin="0,5" />
+                <TextBlock Grid.Row="5" Grid.Column="1" FontSize="12" Margin="0,5">
+                    <Hyperlink NavigateUri="https://github.com/crimsondrac/Cadence-SongSync" RequestNavigate="Hyperlink_RequestNavigate">
+                        https://github.com/crimsondrac/Cadence-SongSync
+                    </Hyperlink>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <!-- Footer -->
+        <Grid Grid.Row="2" Margin="0,14,0,0">
+            <Button Style="{StaticResource ModernBtn}" HorizontalAlignment="Right" Click="BtnClose_Click">
+                <TextBlock Text="Close" />
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

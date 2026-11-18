@@ -1,0 +1,11 @@
+global using MessageBox = System.Windows.MessageBox;
+global using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+global using MouseButtonEventArgs = System.Windows.Input.MouseButtonEventArgs;
+global using DragEventArgs = System.Windows.DragEventArgs;
+global using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+global using ListViewItem = System.Windows.Controls.ListViewItem;
+global using Application = System.Windows.Application;
+global using DataObject = System.Windows.DataObject;
+global using DataFormats = System.Windows.DataFormats;
+global using DragDropEffects = System.Windows.DragDropEffects;
+global using DragDrop = System.Windows.DragDrop;
